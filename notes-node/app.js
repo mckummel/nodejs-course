@@ -6,14 +6,13 @@ const notes = require('./notes');
 
 const argv = yargs.argv;
 var command = process.argv[2];
-console.log('Command: ',command);
-console.log('Yargs: ',argv);
+console.log('Command: ', command);
+console.log('Yargs: ', argv);
 
-switch(command)
-{
+switch (command) {
     case 'add':
         console.log('Adding new note');
-        notes.addNote(argv.title,argv.body);
+        notes.addNote(argv.title, argv.body);
         break;
     case 'list':
         console.log('Listing all notes');
@@ -27,6 +26,6 @@ switch(command)
         console.log('Removing note');
         notes.removeNote(argv.title);
         break;
-    default: 
+    default:
         console.log('Command not recognized');
 }
