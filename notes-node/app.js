@@ -12,7 +12,11 @@ console.log('Yargs: ', argv);
 switch (command) {
     case 'add':
         console.log('Adding new note');
-        notes.addNote(argv.title, argv.body);
+        var note = notes.addNote(argv.title, argv.body);
+        if (note)
+            console.log(`Note created. Title: ${note.title}`);
+        else
+            console.log('Error, note not created');
         break;
     case 'list':
         console.log('Listing all notes');
