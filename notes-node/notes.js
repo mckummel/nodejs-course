@@ -42,16 +42,28 @@ var getAll = () => {
 };
 
 var getNote = (title) => {
-    console.log('Getting note', title);
+    var notes = fetchNotes();
+    var filteredNote = notes.filter((note)=>note.title === title)[0];
+
+    return filteredNote;
 };
 
 var removeNote = (title) => {
-    console.log('Removing note', title);
+    var notes = fetchNotes();
+    var filteredNotes = notes.filter((note)=>note.title !== title);
+    saveNotes(filteredNotes);
+
+    return notes.length !== filteredNotes.length;
+};
+
+var logNote = (note) => {
+    console.log(`Title: ${note.title}. Body: ${note.body}`);
 };
 
 module.exports = {
     addNote: addNote,
     getAll: getAll,
     getNote,
-    removeNote
+    removeNote,
+    logNote
 };

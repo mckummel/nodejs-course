@@ -14,7 +14,7 @@ switch (command) {
         console.log('Adding new note');
         var note = notes.addNote(argv.title, argv.body);
         if (note)
-            console.log(`Note created. Title: ${note.title}`);
+            notes.logNote(note);
         else
             console.log('Error, note not created');
         break;
@@ -23,12 +23,13 @@ switch (command) {
         notes.getAll();
         break;
     case 'read':
-        console.log('Reading note');
-        notes.getNote(argv.title);
+        var note = notes.getNote(argv.title);
+        notes.logNote(note);
         break;
     case 'remove':
-        console.log('Removing note');
-        notes.removeNote(argv.title);
+        var noteRemoved = notes.removeNote(argv.title);
+        var message = noteRemoved ? 'Note was removed' : 'Note not found';
+        console.log(message);
         break;
     default:
         console.log('Command not recognized');
