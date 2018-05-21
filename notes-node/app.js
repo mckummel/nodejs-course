@@ -6,8 +6,6 @@ const notes = require('./notes');
 
 const argv = yargs.argv;
 var command = process.argv[2];
-console.log('Command: ', command);
-console.log('Yargs: ', argv);
 
 switch (command) {
     case 'add':
@@ -20,7 +18,9 @@ switch (command) {
         break;
     case 'list':
         console.log('Listing all notes');
-        notes.getAll();
+        var allNotes = notes.getAll();
+        console.log(`Printing ${allNotes.length} note(s)`);
+        allNotes.forEach((note)=> notes.logNote(note));
         break;
     case 'read':
         var note = notes.getNote(argv.title);

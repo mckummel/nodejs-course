@@ -1,6 +1,7 @@
 var person = 
 {
-    name: 'Andrew'
+    name: 'Andrew',
+    test: 'test'
 };
 
 person.age = 25;
