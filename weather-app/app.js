@@ -1,8 +1,22 @@
 const request = require('request');
+const yargs = require('yargs');
 
+const argv = yargs.options({
+    a: {
+        demand: true,
+        alias: 'address',
+        describe: 'Address to fetch weather for',
+        string: true
+    }
+})
+    .help()
+    .alias('help','h')
+    .argv;
+
+var address = encodeURIComponent(argv.a);
 var geoApiKey = process.env.mapsGeoKey;
 
-var cityUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=Porto%20Alegre%20Brasil&key=${geoApiKey}`;
+var cityUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${geoApiKey}`;
 
 request({
     url: cityUrl,
