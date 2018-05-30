@@ -1,6 +1,6 @@
 const yargs = require('yargs');
 const geocode = require('./geocode/geocode.js');
-const request = require('request');
+const weather = require('./weather/weather.js')
 
 const argv = yargs.options({
         a: {
@@ -14,28 +14,23 @@ const argv = yargs.options({
     .alias('help', 'h')
     .argv;
 
+//callbacks chained - geocodeAddress(getWeather)
+//Get address,lat,lng from geocodeAPI and use it to get temp
 geocode.geocodeAddress(argv.a, (errorMessage, results) => {
     if (errorMessage) {
         console.log(errorMessage);
     } else {
-        console.log(JSON.stringify(results, undefined, 2));
+        console.log(results.address);
         
         var lat = results.latitude;
         var lng = results.longitude;
 
-        var weatherKey = process.env.weatherKey;
-
-        var weatherUrl = `https://api.darksky.net/forecast/${weatherKey}/${lat},${lng}`;
-        request({
-            url: weatherUrl,
-            json: true
-        }, (error, response, body) => {
-            if (response.statusCode === 200) {
-                console.log(body.currently.temperature);
-            } else if (response.statusCode === 404) {
-                console.log('Not found.')
+        weather.getWeather(lat,lng,(errorMessage,weatherResults)=>{
+            if (errorMessage) {
+                console.log(errorMessage);
             } else {
-                console.log('Unable to fetch weather');
+                console.log(`It's currently: ${weatherResults.temperature}.`);
+                console.log(`It feels like: ${weatherResults.apparentTemperature}.`);
             }
         });
     }

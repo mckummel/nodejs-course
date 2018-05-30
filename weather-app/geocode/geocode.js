@@ -2,6 +2,7 @@ const request = require('request');
 
 var geocodeAddress = (inputAddress, callback) => {
     var address = encodeURIComponent(inputAddress);
+    //environment key so my key is not public
     var geoApiKey = process.env.mapsGeoKey;
 
     var cityUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${geoApiKey}`;
@@ -27,7 +28,7 @@ var geocodeAddress = (inputAddress, callback) => {
                 address: body.results[0].formatted_address,
                 latitude: body.results[0].geometry.location.lat,
                 longitude: body.results[0].geometry.location.lng
-            })
+            });
         }
     });
 };
